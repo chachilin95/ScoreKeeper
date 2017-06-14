@@ -5,22 +5,36 @@ import {Tracker} from 'meteor/tracker';
 
 import {Players} from './../imports/api/players';
 
-Tracker.autorun(function () {
-  console.log('Players list', Players.find().fetch());  
-})
+const renderPlayers = function (players) {
+  return players.map(function (player) {
+    return <p key={player._id}>{player.name} has {player.score} point(s)</p>
+  })
+}
 
 Meteor.startup(function () {
+  
+  Tracker.autorun(function () {
+    let players = Players.find().fetch();
 
-  let title = "Score Keeper App";
+    let title = "Score Keeper App";
+    let name = "Alejandro Figueroa";
+    let jsx = (
+      <div>
+        <h1>{title}</h1>
+        <p>Hello, {name}</p>
+        <p>You are great!</p>
+        {renderPlayers(players)}
+      </div>
+    );
 
-  let name = "Alejandro Figueroa";
-  let jsx = (
-    <div>
-      <h1>{title}</h1>
-      <p>Hello, {name}</p>
-      <p>You are great!</p>
-    </div>
-  );
+    ReactDOM.render(jsx, document.getElementById('app'));
+  })
 
-  ReactDOM.render(jsx, document.getElementById('app'));
+  Players.insert({
+    name: 'Kailynn',
+    score: 40
+  });
+
+  console.log(Players.find().fetch());
+  
 });
