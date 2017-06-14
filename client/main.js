@@ -3,8 +3,17 @@ import ReactDOM from 'react-dom';
 import {Meteor} from 'meteor/meteor';
 
 Meteor.startup(function () {
-  let myName = "Alejandro Figueroa";
-  let jsx = <p>Hello, {myName}</p>;
+
+  let title = "Score Keeper App";
+
+  let name = "Alejandro Figueroa";
+  let jsx = (
+    <div>
+      <h1>{title}</h1>
+      <p>Hello, {name}</p>
+      <p>You are great!</p>
+    </div>
+  );
 
   ReactDOM.render(jsx, document.getElementById('app'));
 });
