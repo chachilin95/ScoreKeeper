@@ -5,13 +5,13 @@ export default class TitleBar extends React.Component {
   
   renderTitle() {
     if (this.props.title) {
-      return <h1>{this.props.title}</h1>;
+      return <h1 className='title-bar'>{this.props.title}</h1>;
     }
   }
 
   renderSubtitle() {
     if (this.props.subtitle) {
-      return <h2>{this.props.subtitle}</h2>;
+      return <h2 className='title-bar__subtitle'>{this.props.subtitle}</h2>;
     }
   }
 

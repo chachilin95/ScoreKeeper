@@ -19,12 +19,20 @@ export default class Player extends React.Component {
 
   render() {
     return (
-      <div className='item'>
-        <p key={this.key}> {this.props.player.name} has {this.props.player.score} point(s).
-          <button onClick={this.incrementScore.bind(this)}>+1</button> 
-          <button onClick={this.decrementScore.bind(this)}>-1</button> 
-          <button onClick={this.removePlayer.bind(this)}>X</button> 
-        </p>
+      <div key={this.props.player_id} className='item'>
+        <div className='player'>  
+          <div>      
+            <h3 className='player__name'>{this.props.player.name}</h3>
+            <p className='player__stats'>
+              {this.props.player.score} point(s).
+            </p>
+          </div>
+          <div className='player__actions'>
+            <button onClick={this.incrementScore.bind(this)} className='button button--round'>+1</button> 
+            <button onClick={this.decrementScore.bind(this)} className='button button--round'>-1</button> 
+            <button onClick={this.removePlayer.bind(this)} className='button button--round'>X</button>
+          </div>
+        </div>
       </div>
     );
   }

@@ -10,7 +10,7 @@ export default class PlayersList extends React.Component {
     if (this.props.players.length == 0) {
       return (
         <div className='item'>
-          <p>No players in the list!</p>
+          <p className='item__message'>No players in the list!</p>
         </div>
       );
     } else {
