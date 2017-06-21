@@ -7,16 +7,16 @@ import {Players} from './../imports/api/players';
 
 // when a new player name is submitted
 const addPlayer = (e) => {
-  let playerName = e.target.playerName.value
-  e.preventDefault()
+  let playerName = e.target.playerName.value;
+  e.preventDefault();
 
   if (playerName) {
     Players.insert({
       name: playerName,
       score: -1
-    })
-  }
-}
+    });
+  };
+};
 
 const renderPlayers = (players) => players.map((player) => {
 
@@ -27,8 +27,8 @@ const renderPlayers = (players) => players.map((player) => {
         <button onClick={() => { Players.update({_id: player._id}, {$inc: {score: -1}})}}>-1</button> 
         <button onClick={() => { Players.remove({_id: player._id})} }>X</button> 
       </p>
-    )
-  })
+    );
+  });
 
 Meteor.startup(() => {
   
@@ -41,6 +41,7 @@ Meteor.startup(() => {
         <h1>{title}</h1>
         {renderPlayers(players)}
 
+        <AddPlayer/>
         <form onSubmit={addPlayer}>
           <input type="text" name="playerName" placeholder="Enter name"/>
           <button>Add Player</button>
@@ -50,6 +51,6 @@ Meteor.startup(() => {
     );
 
     ReactDOM.render(jsx, document.getElementById('app'));
-  })
+  });
   
 });
