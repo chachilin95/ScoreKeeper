@@ -19,9 +19,8 @@ export default class Player extends React.Component {
 
   render() {
     return (
-      <div>
-        <p key={this.key}>
-          {this.props.player.name} has {this.props.player.score} point(s).
+      <div className='item'>
+        <p key={this.key}> {this.props.player.name} has {this.props.player.score} point(s).
           <button onClick={this.incrementScore.bind(this)}>+1</button> 
           <button onClick={this.decrementScore.bind(this)}>-1</button> 
           <button onClick={this.removePlayer.bind(this)}>X</button> 
