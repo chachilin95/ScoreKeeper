@@ -7,7 +7,7 @@ import AddPlayerForm from './AddPlayer';
 
 import playersReducer from '../reducers/players';
 import { PopulatePlayers } from '../actions/players';
-import PlayersContext from '../contexts/players.context';
+import { IPlayersContext, PlayersContextProvider } from '../contexts/players.context';
 
 export default () => {
 
@@ -26,15 +26,20 @@ export default () => {
         localStorage.setItem('players', JSON.stringify(players));
     }, [players]);
 
+    const AppContext: IPlayersContext = {
+        players,
+        dispatch
+    }
+
     return (
         <div>
             <TitleBar
                 title='Score Keeper App'
                 subtitle='May the best player win!' />
-            <PlayersContext.Provider value={{ players, dispatch }}>
+            <PlayersContextProvider value={AppContext}>
                 <PlayerList />
                 <AddPlayerForm />
-            </PlayersContext.Provider>
+            </PlayersContextProvider>
         </div>
     );
 };
