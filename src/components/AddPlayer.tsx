@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 
-import { Action } from '../types';
-
-import { PlayersContextConsumer } from '../contexts/players.context';
+import { PlayersContext } from '../contexts/players.context';
 import { AddPlayer } from '../actions/players';
 
 export default () => {
 
+    const { dispatch } = useContext(PlayersContext);
     const [name, setName] = useState('');
 
-    const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>, dispatch: React.Dispatch<Action>): void => {
+    const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
 
         if (name) {
@@ -20,21 +19,15 @@ export default () => {
         }
     };
 
-    const renderAddPlayer = (dispatch: React.Dispatch<Action>) => (
+    return (
         <div>
-            <form onSubmit={(e) => handleOnSubmit(e, dispatch)}>
+            <form onSubmit={handleOnSubmit}>
                 <input
-                    placeholder='enter player name here'
+                    placeholder='Enter player name here'
                     onChange={(e) => setName(e.target.value)}
                     value={name} />
                 <button>Add Player</button>
             </form>
         </div>
-    );
-
-    return (
-        <PlayersContextConsumer>
-            {appContext => appContext && renderAddPlayer(appContext.dispatch)}
-        </PlayersContextConsumer>
     );
 };

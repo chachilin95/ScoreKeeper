@@ -2,12 +2,13 @@ import React from 'react'
 
 import { Action, Player } from '../types';
 
-export interface IPlayersContext {
-    players: Player[],
-    dispatch: React.Dispatch<Action>
-}
+export type IPlayersContext = { players: Player[], dispatch: React.Dispatch<Action> }
 
-const PlayersContext = React.createContext<IPlayersContext | null>(null);
+const defaultValue:IPlayersContext = {
+    players: [],
+    dispatch: () => {}
+};
+export const PlayersContext = React.createContext<IPlayersContext>(defaultValue);
 
 export const PlayersContextProvider = PlayersContext.Provider;
 export const PlayersContextConsumer = PlayersContext.Consumer;

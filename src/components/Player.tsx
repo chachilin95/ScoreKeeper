@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
-import { Action, Player } from '../types';
+import { Player } from '../types';
 import { UpdatePlayer, DeletePlayer } from '../actions/players';
 
-import { PlayersContextConsumer } from '../contexts/players.context';
+import { PlayersContext } from '../contexts/players.context';
 
 interface PlayerProps {
     player: Player
@@ -11,19 +11,19 @@ interface PlayerProps {
 
 export default ({ player }: PlayerProps) => {
 
-    const renderPlayer = (dispatch: React.Dispatch<Action>) => (
+    const { dispatch } = useContext(PlayersContext);
+
+    const incrementScore = () => dispatch(UpdatePlayer(player.id, 1));
+    const decrementScore = () => dispatch(UpdatePlayer(player.id, -1));
+    const deletePlayer = () => dispatch(DeletePlayer(player.id));
+
+    return (
         <div>
             <p>Player: {player.name}</p>
             <p>Score: {player.score}</p>
-            <button onClick={() => dispatch(UpdatePlayer(player.id, 1))}>+1</button>
-            <button onClick={() => dispatch(UpdatePlayer(player.id, -1))}>-1</button>
-            <button onClick={() => dispatch(DeletePlayer(player.id))}>X</button>
+            <button onClick={incrementScore}>+1</button>
+            <button onClick={decrementScore}>-1</button>
+            <button onClick={deletePlayer}>X</button>
         </div>
-    )
-
-    return (
-        <PlayersContextConsumer>
-            {appContext => appContext && renderPlayer(appContext.dispatch)}
-        </PlayersContextConsumer>
     );
 };

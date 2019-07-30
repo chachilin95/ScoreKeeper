@@ -7,7 +7,7 @@ import AddPlayerForm from './AddPlayer';
 
 import playersReducer from '../reducers/players';
 import { PopulatePlayers } from '../actions/players';
-import { IPlayersContext, PlayersContextProvider } from '../contexts/players.context';
+import { PlayersContextProvider } from '../contexts/players.context';
 
 export default () => {
 
@@ -15,8 +15,9 @@ export default () => {
 
     // populate player list on startup
     useEffect(() => {
-        const players = JSON.parse(localStorage.getItem('players') || '[]');
-        if (players) {
+        const playerData = localStorage.getItem('players');
+        if (playerData) {
+            const players = JSON.parse(playerData);
             dispatch(PopulatePlayers(players));
         }
     }, []);
@@ -26,17 +27,12 @@ export default () => {
         localStorage.setItem('players', JSON.stringify(players));
     }, [players]);
 
-    const AppContext: IPlayersContext = {
-        players,
-        dispatch
-    }
-
     return (
         <div>
             <TitleBar
                 title='Score Keeper App'
                 subtitle='May the best player win!' />
-            <PlayersContextProvider value={AppContext}>
+            <PlayersContextProvider value={{ players, dispatch }}>
                 <PlayerList />
                 <AddPlayerForm />
             </PlayersContextProvider>

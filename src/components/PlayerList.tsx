@@ -1,25 +1,36 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import PlayerItem from './Player';
 
 import { Player } from '../types';
 
-import { PlayersContextConsumer } from '../contexts/players.context';
+import { PlayersContext } from '../contexts/players.context';
 import { getSortedPlayers } from '../selectors/players';
 
 export default () => {
 
-    const renderPlayerList = (players: Player[]) => (
-        <div>
-            {getSortedPlayers(players).map((player: Player, index: number) =>
-                <PlayerItem key={index} player={player} />
-            )}
-        </div>
-    );
+    const { players } = useContext(PlayersContext);
+    const sortedPlayers = getSortedPlayers(players);
+
+    const renderPlayerList = () => {
+        if (players.length === 0) {
+            return (
+                <div className='title-bar__subtitle'>
+                    Add a player to the list!
+                </div>
+            );
+        } else {
+            return (
+                sortedPlayers.map((player: Player, index: number) => (
+                    <PlayerItem key={index} player={player} />
+                ))                
+            );
+        }
+    };
 
     return (
-        <PlayersContextConsumer>
-            {appContext => appContext && renderPlayerList(appContext.players)}
-        </PlayersContextConsumer>
+        <div>
+            {renderPlayerList()}
+        </div>
     );
 };
