@@ -7,9 +7,11 @@ interface TitleBarProps {
 
 export default ({ title, subtitle }: TitleBarProps) => {
     return (
-        <div>
-            <h1>{title}</h1>
-            <h3>{subtitle}</h3>
+        <div className='title-bar'>
+            <div className='wrapper'>
+                <h1 className='title-bar__title'>{title}</h1>
+                <h2 className='title-bar__subtitle'>{subtitle}</h2>
+            </div>
         </div>
     );
 };
