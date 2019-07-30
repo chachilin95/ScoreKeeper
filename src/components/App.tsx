@@ -1,12 +1,12 @@
 import React, { useEffect, useReducer } from 'react';
 
+// components
 import TitleBar from './TitleBar';
 import PlayerList from './PlayerList';
 import AddPlayerForm from './AddPlayer';
 
 import playersReducer from '../reducers/players';
 import { PopulatePlayers } from '../actions/players';
-
 import PlayersContext from '../contexts/players.context';
 
 export default () => {
@@ -28,12 +28,12 @@ export default () => {
 
     return (
         <div>
-            <TitleBar 
+            <TitleBar
                 title='Score Keeper App'
-                subtitle='May the best player win!'/>
+                subtitle='May the best player win!' />
             <PlayersContext.Provider value={{ players, dispatch }}>
-                <PlayerList/>
-                <AddPlayerForm/>
+                <PlayerList />
+                <AddPlayerForm />
             </PlayersContext.Provider>
         </div>
     );

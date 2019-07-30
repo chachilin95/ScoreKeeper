@@ -1,11 +1,11 @@
 import React from 'react';
 
 interface TitleBarProps {
-    title:string,
-    subtitle:string
+    title: string,
+    subtitle: string
 };
 
-export default ({ title, subtitle }:TitleBarProps) => {
+export default ({ title, subtitle }: TitleBarProps) => {
     return (
         <div>
             <h1>{title}</h1>

@@ -9,10 +9,10 @@ interface PlayerProps {
     player: Player
 }
 
-export default ({ player }:PlayerProps) => {
+export default ({ player }: PlayerProps) => {
     const { dispatch } = useContext(PlayersContext);
-    
-    const updateScore = (value:number) => {
+
+    const updateScore = (value: number) => {
         dispatch(UpdatePlayer(player.id, value));
     };
 
