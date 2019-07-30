@@ -1,15 +1,17 @@
 import React from 'react';
 
+import PlayerItem from './Player';
+
 import { Player } from '../types';
 
-import PlayerItem from './Player';
 import { PlayersContextConsumer } from '../contexts/players.context';
+import { getSortedPlayers } from '../selectors/players';
 
 export default () => {
 
     const renderPlayerList = (players: Player[]) => (
         <div>
-            {players.map((player: Player, index: number) =>
+            {getSortedPlayers(players).map((player: Player, index: number) =>
                 <PlayerItem key={index} player={player} />
             )}
         </div>
