@@ -14,21 +14,26 @@ interface PlayerProps {
 export default ({ player, rank }: PlayerProps) => {
 
     const { dispatch } = useContext(PlayersContext);
-
     const deletePlayer = () => dispatch(DeletePlayer(player.id));
     const incrementScore = () => dispatch(UpdatePlayer(player.id, 1));
     const decrementScore = () => dispatch(UpdatePlayer(player.id, -1));
 
     let itemClassName = `item item--position-${rank}`;
 
+    const createPlayerStats = () => {
+        const playerRank = numeral(rank).format('0o');
+        const playerScore = player.score;
+        const playerScoreLabel = player.score === 1 ? 'point' : 'points';
+
+        return `${playerRank} place – ${playerScore} ${playerScoreLabel}`;
+    }
+
     return (
         <div className={itemClassName}>
             <div className='player'>
                 <div className='player__description'>
                     <h3 className='player__name'>{player.name}</h3>
-                    <p className='player__stats'>
-                        {`${numeral(rank).format('0o')} place – ${player.score} ${player.score > 1 || player.score === 0 ? 'points' : 'point'}`}
-                    </p>
+                    <p className='player__stats'>{createPlayerStats()}</p>
                 </div>
                 <div className='player__actions'>
                     <button className='button button--round' onClick={incrementScore}>+1</button>
