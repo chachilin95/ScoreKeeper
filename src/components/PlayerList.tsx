@@ -15,21 +15,21 @@ export default () => {
     const renderPlayerList = () => {
         if (players.length === 0) {
             return (
-                <div className='title-bar__subtitle'>
+                <div className='player-list__message'>
                     Add a player to the list!
                 </div>
             );
         } else {
             return (
                 sortedPlayers.map((player: Player, index: number) => (
-                    <PlayerItem key={index} player={player} />
+                    <PlayerItem key={index} index={index+1} player={player} />
                 ))                
             );
         }
     };
 
     return (
-        <div>
+        <div className='player-list'>
             {renderPlayerList()}
         </div>
     );

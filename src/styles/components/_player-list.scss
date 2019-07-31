@@ -1,0 +1,15 @@
+.player-list {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 1.5rem;
+}
+
+.player-list__item {
+    background: white;
+}
+
+.player-list__message {
+    color: grey;
+}
