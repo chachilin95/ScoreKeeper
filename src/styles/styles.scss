@@ -1,7 +1,10 @@
+@import './base/settings.scss';
 @import './base/base';
 
+@import './components/add-player';
 @import './components/button';
-@import './components/title-bar';
-@import './components/wrapper';
+@import './components/item';
 @import './components/player-list';
 @import './components/player';
+@import './components/title-bar';
+@import './components/wrapper';

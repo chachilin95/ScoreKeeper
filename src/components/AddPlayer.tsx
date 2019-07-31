@@ -20,13 +20,14 @@ export default () => {
     };
 
     return (
-        <div>
-            <form onSubmit={handleOnSubmit}>
+        <div className='item'>
+            <form className='add-player' onSubmit={handleOnSubmit}>
                 <input
+                    className='add-player__input'
                     placeholder='Enter player name here'
                     onChange={(e) => setName(e.target.value)}
                     value={name} />
-                <button>Add Player</button>
+                <button className='button'>Add Player</button>
             </form>
         </div>
     );

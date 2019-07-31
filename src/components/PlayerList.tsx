@@ -15,21 +15,21 @@ export default () => {
     const renderPlayerList = () => {
         if (players.length === 0) {
             return (
-                <div className='player-list__message'>
-                    Add a player to the list!
+                <div className='item'>
+                    <p className='item__message'>Add a player to the list!</p>
                 </div>
             );
         } else {
             return (
                 sortedPlayers.map((player: Player, index: number) => (
-                    <PlayerItem key={index} index={index+1} player={player} />
+                    <PlayerItem key={player.id} rank={index+1} player={player} />
                 ))                
             );
         }
     };
 
     return (
-        <div className='player-list'>
+        <div>
             {renderPlayerList()}
         </div>
     );
