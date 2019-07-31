@@ -32,10 +32,12 @@ export default () => {
             <TitleBar
                 title='Score Keeper App'
                 subtitle='May the best player win!' />
-            <PlayersContextProvider value={{ players, dispatch }}>
-                <PlayerList />
-                <AddPlayerForm />
-            </PlayersContextProvider>
+            <div className='wrapper'>
+                <PlayersContextProvider value={{ players, dispatch }}>
+                    <PlayerList />
+                    <AddPlayerForm />
+                </PlayersContextProvider>
+            </div>
         </div>
     );
 };
