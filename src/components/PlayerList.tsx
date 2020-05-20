@@ -1,64 +1,16 @@
-import React, { useContext } from 'react';
+import React from 'react';
+
 import { AnimatePresence, motion } from 'framer-motion';
+import animations from './animations';
 
-import PlayerItem from './Player';
+import Player from './Player';
+import { PlayerListProps } from '../types';
 
-import { Player } from '../types';
+const PlayerList = ({ players, handlers }: PlayerListProps) => {
 
-import { PlayersContext } from '../contexts/players.context';
-import { getSortedPlayers } from '../selectors/players';
-
-export default () => {
-
-    const { players } = useContext(PlayersContext);
-    const sortedPlayers = getSortedPlayers(players);
-
-    const renderPlayerList = () => {
-
-        const animations = {
-
-            pop: {
-                initial: {
-                    scale: 0
-                },
-
-                enter: {
-                    scale: 1
-                },
-
-                transition: {
-                    type: "spring",
-                    damping: 20,
-                    stiffness: 800
-                }
-            },
-
-            slide: {
-                initial: {
-                    x: -300,
-                    opacity: 0,
-                    scale: 0
-                },
-
-                enter: {
-                    x: 0,
-                    opacity: 1,
-                    scale: 1
-                },
-
-                exit: {
-                    x: 300,
-                    opacity: 0
-                },
-
-                transition: {
-                    type: "spring",
-                    damping: 15,
-                    stiffness: 300
-                }
-            }
-        }
-
+    // display empty list
+    if (players.length === 0) {
+        
         const emptyPlayerListMessage = (
             <motion.div
                 initial={animations.pop.initial}
@@ -71,9 +23,16 @@ export default () => {
             </motion.div>
         );
 
-        const populatedPlayerList = (
-            <AnimatePresence>
-                {sortedPlayers.map((player: Player, index: number) => (
+        return emptyPlayerListMessage;
+    }
+
+    // descending sort by score
+    const sortedPlayers = players.sort((a, b) => a.score > b.score ? -1 : 1);
+
+    const populatedPlayerList = (
+        <AnimatePresence>
+            {
+                sortedPlayers.map((player, index) => (
                     <motion.div
                         key={player.id}
                         initial={animations.slide.initial}
@@ -81,23 +40,22 @@ export default () => {
                         exit={animations.slide.exit}
                         positionTransition={animations.slide.transition}
                     >
-                        <PlayerItem rank={index + 1} player={player} />
+                        <Player 
+                            rank={index + 1} 
+                            player={player} 
+                            handleDeletePlayer={() => handlers.deletePlayer(player.id)}
+                            handleUpdatePlayer={(adjustment: number) => handlers.updatePlayer(player.id, adjustment)}/>
                     </motion.div>
-                ))}
-            </AnimatePresence>
-        );
-
-        // render
-        if (players.length === 0) {
-            return emptyPlayerListMessage;
-        } else {
-            return populatedPlayerList;
-        }
-    };
+                ))
+            }
+        </AnimatePresence>
+    );
 
     return (
         <div>
-            {renderPlayerList()}
+            {populatedPlayerList}
         </div>
     );
 };
+
+export default PlayerList;

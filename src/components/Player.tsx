@@ -1,22 +1,13 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import numeral from 'numeral';
 
-import { Player } from '../types';
-import { UpdatePlayer, DeletePlayer } from '../actions/players';
+import { PlayerProps } from '../types';
 
-import { PlayersContext } from '../contexts/players.context';
+export default ({ player, rank, handleDeletePlayer, handleUpdatePlayer }: PlayerProps) => {
 
-interface PlayerProps {
-    rank: number,
-    player: Player
-};
-
-export default ({ player, rank }: PlayerProps) => {
-
-    const { dispatch } = useContext(PlayersContext);
-    const deletePlayer = () => dispatch(DeletePlayer(player.id));
-    const incrementScore = () => dispatch(UpdatePlayer(player.id, 1));
-    const decrementScore = () => dispatch(UpdatePlayer(player.id, -1));
+    const deletePlayer = () => handleDeletePlayer();
+    const incrementScore = () => handleUpdatePlayer(1);
+    const decrementScore = () => handleUpdatePlayer(-1);
 
     let itemClassName = `item item--position-${rank}`;
 

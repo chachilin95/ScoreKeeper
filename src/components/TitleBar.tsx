@@ -1,9 +1,6 @@
 import React from 'react';
 
-interface TitleBarProps {
-    title: string,
-    subtitle: string
-};
+import { TitleBarProps } from '../types';
 
 export default ({ title, subtitle }: TitleBarProps) => {
     return (

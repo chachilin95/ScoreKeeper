@@ -1,18 +1,16 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 
-import { PlayersContext } from '../contexts/players.context';
-import { AddPlayer } from '../actions/players';
+import { AddPlayerProps } from '../types';
 
-export default () => {
+const AddPlayer = ({ handlers }: AddPlayerProps) => {
 
-    const { dispatch } = useContext(PlayersContext);
     const [name, setName] = useState('');
 
     const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
 
         if (name) {
-            dispatch(AddPlayer(name));
+            handlers.addPlayer(name);
             setName('');
         } else {
             alert('Please submit a valid name that is at least 1 character long');
@@ -32,3 +30,5 @@ export default () => {
         </div>
     );
 };
+
+export default AddPlayer;

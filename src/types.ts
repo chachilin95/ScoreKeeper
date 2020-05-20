@@ -6,21 +6,33 @@ export interface Player {
 
 export type State = Player[];
 
-export type Action =
-    | {
-        type: 'POPULATE_PLAYER_LIST',
-        players: [Player]
-    }
-    | {
-        type: 'ADD_PLAYER',
-        name: string
-    }
-    | {
-        type: 'DELETE_PLAYER',
-        id: string
-    }
-    | {
-        type: 'UPDATE_PLAYER',
-        id: string,
-        value: number
-    };
+export type StateHandlers = {
+    addPlayer: (name: string) => void,
+    deletePlayer: (id: string) => void,
+    updatePlayer: (id: string, adjustment: number) => void
+}
+
+// AddPlayer Component
+export interface AddPlayerProps {
+    handlers: StateHandlers
+};
+
+// PlayerList Component
+export interface PlayerListProps {
+    players: State,
+    handlers: StateHandlers
+};
+
+// Player Component
+export interface PlayerProps {
+    rank: number,
+    player: Player,
+    handleUpdatePlayer: (adjustment: number) => void
+    handleDeletePlayer: () => void
+};
+
+// TitleBar Component
+export interface TitleBarProps {
+    title: string,
+    subtitle: string
+};
